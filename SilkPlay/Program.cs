@@ -51,6 +51,8 @@ public class Program
         _window.Render += OnRender;
 
         _window.Run();
+
+        _window.Dispose();
     }
 
     private static void OnLoad(){
