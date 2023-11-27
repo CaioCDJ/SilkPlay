@@ -49,8 +49,16 @@ public class Program
         _window.Load += OnLoad;
         _window.Update += OnUpdate;
         _window.Render += OnRender;
+        _window.Resize += OnResize;
 
         _window.Run();
+
+        _window.Dispose();
+    }
+
+    private static void OnResize(Vector2D<int> d)
+    {
+        _gl.Viewport(d);
     }
 
     private static void OnLoad(){
@@ -115,19 +123,19 @@ public class Program
 		uint[] indexArray = new uint[] {0, 1, 2};
   
         _gl.BindBuffer(GLEnum.ArrayBuffer, vertices);
-        _gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)vertexArray.AsSpan(), GLEnum.StaticDraw);
+        _gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)vertexArray, GLEnum.StaticDraw);
         _gl.VertexAttribPointer(0,3,GLEnum.Float, false,0,null); 
         _gl.EnableVertexAttribArray(0);
     
         
         _gl.BindBuffer(GLEnum.ArrayBuffer, colors);
-        _gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)colorArray.AsSpan(), GLEnum.StaticDraw);
+        _gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)colorArray, GLEnum.StaticDraw);
         _gl.VertexAttribPointer(1,4,GLEnum.Float, false,0,null); 
         _gl.EnableVertexAttribArray(1);
 
 
         _gl.BindBuffer(GLEnum.ElementArrayBuffer, indices);
-        _gl.BufferData(GLEnum.ElementArrayBuffer, (ReadOnlySpan<uint>)indexArray.AsSpan(), GLEnum.StaticDraw);
+        _gl.BufferData(GLEnum.ElementArrayBuffer, (ReadOnlySpan<uint>)indexArray, GLEnum.StaticDraw);
 
         _gl.BindBuffer(GLEnum.ArrayBuffer,0);
         
